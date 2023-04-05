@@ -24,9 +24,9 @@ export default function Home(): JSX.Element {
   }, []);
   console.log(movies);
 
-  function loadHandler() {
-    fetch(`http://localhost:8080/movies?limit=${movies && movies.length + 4}`).then((res) => setMovies(movies &&  [...movies, ...res.data]))
-  }
+  // function loadHandler() {
+  //   fetch(`http://localhost:8080/movies?limit=${movies && movies.length + 4}`).then((res) => setMovies(movies &&  [...movies, ...res.data]))
+  // }
 
   return (
     <Layout>
@@ -48,7 +48,7 @@ export default function Home(): JSX.Element {
             ))}
         </div>
           <div className="w-full h-auto justify-center flex mt-3 mb-3">
-            <button onClick={loadHandler} className="rounded-full bg-emerald-600 h-[50px] w-[170px]">Load more</button>
+            <button className="rounded-full bg-emerald-600 h-[50px] w-[170px]">Load more</button>
           </div>
       </div>
     </Layout>
