@@ -16,7 +16,7 @@ export default function Movie() {
   console.log("data", data);
 
   return (
-    <div>
+    <div className="bg-black">
       {/* ID: {query.id} */}
       <div>
         {data && (
@@ -28,14 +28,22 @@ export default function Movie() {
             </div>
             <div className="w-1/2 h-screen flex items-center justify-center">
               <div className="w-4/5 h-auto text-xl gap-y-px">
-                <p className="text-4xl font-semibold text-blue-600">{data.title}</p>
-                <p className="mt-6">Genres: {data.genres.join(", ")}</p>
-                <p className="mt-2">Runtime: {data.runtime} hours</p>
-                <p className="mt-2">Plot: {data.plot}</p>
-                <p className="mt-2">Directors: {data.directors.join(", ")}</p>
-                <p className="mt-2">Countries: {data.countries}</p>
-                <p className="mt-2">Year: {data.year}</p>
-                <p className="mt-2">IMDB rating: {data.imdb.rating}</p>
+                <p className="text-4xl font-semibold text-blue-600">
+                  {data.title}
+                </p>
+                <p className="mt-6 text-white">
+                  Genres: {data.genres.join(", ")}
+                </p>
+                <p className="mt-2 text-white">Runtime: {data.runtime} hours</p>
+                <p className="mt-2 text-white">Plot: {data.plot}</p>
+                <p className="mt-2 text-white">
+                  Directors: {data.directors.join(", ")}
+                </p>
+                <p className="mt-2 text-white">Countries: {data.countries}</p>
+                <p className="mt-2 text-white">Year: {data.year}</p>
+                <p className="mt-2 text-white">
+                  IMDB rating: {data.imdb.rating}
+                </p>
               </div>
             </div>
           </div>
