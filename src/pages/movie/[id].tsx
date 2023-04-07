@@ -57,30 +57,30 @@ export default function Movie({ data: movie }: { data: MovieType }) {
   );
 }
 
-export const getStatisPaths: GetStaticPaths = async () => {
-  const res = await fetch(`http://localhost:8080/movies-id`);
-  const resJson = await res.json();
-  const paths = await resJson.map((id: { _id: string }) => ({
-    params: { id: id._id },
-  }));
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
+// export const getStatisPaths: GetStaticPaths = async () => {
+//   const res = await fetch(`http://localhost:8080/movies-id`);
+//   const resJson = await res.json();
+//   const paths = await resJson.map((id: { _id: string }) => ({
+//     params: { id: id._id },
+//   }));
+//   return {
+//     paths,
+//     fallback: "boolean",
+//   };
+// };
 
-interface MovieProps {
-  data: MovieType | null;
-}
+// interface MovieProps {
+//   data: MovieType | null;
+// }
 
-export const getStaticProps: GetStaticProps<MovieProps> = async ({
-  params,
-}: GetStaticPropsContext) => {
-  const res = await fetch(`http://localhost:8080/movie/${params?.id}`);
-  const movie = await res.json();
-  return {
-    props: {
-      data: movie,
-    },
-  };
-};
+// export const getStaticProps: GetStaticProps<MovieProps> = async ({
+//   params,
+// }: GetStaticPropsContext) => {
+//   const res = await fetch(`http://localhost:8080/movie/${params?.id}`);
+//   const movie = await res.json();
+//   return {
+//     props: {
+//       data: movie,
+//     },
+//   };
+// };
