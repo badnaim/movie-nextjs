@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-typos */
 // import React, { useEffect, useState } from "react";
 // import { useRouter } from "next/router";
+import axios from "axios";
 import { MovieType } from "@/util/types";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 
-export default function Movie({ data: movie }: { data: MovieType }) {
+export default function Movie({ data: movie }: { data: MovieType }):JSX.Element {
   // const [data, setData] = useState<MovieType | null>(null);
   // const { query } = useRouter();
   // console.log("Router: ", query.id);
@@ -18,20 +19,20 @@ export default function Movie({ data: movie }: { data: MovieType }) {
   // console.log("data", data);
 
   return (
-    <div className="bg-black">
+    <div>
       <div>
-        <div>{movie._id}</div>
-        {/* {data && (
-          <div className="flex ">
+        <div className="text-white">{movie.title}</div>
+        
+          {/* <div className="flex ">
             <div className="w-1/2 h-screen flex items-center justify-center">
               <picture className="w-full h-auto flex justify-center">
-                <img src={data.poster} alt="" className="w-2/5 h-auto" />
+                <img src={movie.poster} alt="" className="w-2/5 h-auto" />
               </picture>
             </div>
             <div className="w-1/2 h-screen flex items-center justify-center">
               <div className="w-4/5 h-auto text-xl gap-y-px">
                 <p className="text-4xl font-semibold text-blue-600">
-                  {data.title}
+                  {movie.title}
                 </p>
                 <p className="mt-6 text-white">
                   Genres: {movie.genres.join(", ")}
@@ -50,37 +51,45 @@ export default function Movie({ data: movie }: { data: MovieType }) {
                 </p>
               </div>
             </div>
-          </div>
-        )} */}
+          </div> */}
+        
       </div>
     </div>
   );
 }
 
-// export const getStatisPaths: GetStaticPaths = async () => {
-//   const res = await fetch(`http://localhost:8080/movies-id`);
-//   const resJson = await res.json();
-//   const paths = await resJson.map((id: { _id: string }) => ({
-//     params: { id: id._id },
-//   }));
-//   return {
-//     paths,
-//     fallback: "boolean",
-//   };
-// };
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await axios.get(`http://localhost:8080/movies-id`)
+  const data = res.data;
+  // console.log('my data',data)
+  // const resJson = await res.json();
+  const paths = await data.map((id: { _id: string }) => ({
+    params: { id: id._id },
+  }));
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
 
-// interface MovieProps {
-//   data: MovieType | null;
+interface MovieProps {
+  data: MovieType | null;
+}
+
+export const getStaticProps: GetStaticProps<MovieProps> = async ({
+  params,
+}: GetStaticPropsContext) => {
+  const res = await fetch(`http://localhost:8080/movie/${params?.id}`);
+  const myRes = await res.json();
+  return {
+    props: {
+      data: myRes,
+    },
+  };
+};
+
+// export async function getStaticProps({ params }: GetStaticPropsContext) {
+//   const res = await axios.get(`http://localhost:8080/movies?id=${params?.id}`)
+//   const movie = res.data;
+//   return { props: { data: movie}}
 // }
-
-// export const getStaticProps: GetStaticProps<MovieProps> = async ({
-//   params,
-// }: GetStaticPropsContext) => {
-//   const res = await fetch(`http://localhost:8080/movie/${params?.id}`);
-//   const movie = await res.json();
-//   return {
-//     props: {
-//       data: movie,
-//     },
-//   };
-// };

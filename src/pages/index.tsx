@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Layout from "@/components/Layout";
 import Header from "../components/Header";
 import CardContainer from "../components/CardContainer";
 import Slider from "@/components/Slider";
 import { MovieType } from "@/util/types";
+import Link from "next/link";
 // import axios from "axios";
 
 export default function Home(props: { movies: MovieType[] }): JSX.Element {
